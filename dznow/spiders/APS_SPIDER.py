@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 import scrapy
 import re
 
@@ -37,7 +39,7 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
         item['content'] = description.css(".K2FeedFullText ::text ").getall()
         item['category'] = node.xpath('category/text()').get()
         item['author'] = node.xpath('author/text()').get()
-        item['date'] = node.xpath('pubDate/text()').get()
+        item['date'] = datetime.datetime.strptime(node.xpath("pubDate/text()").get(),'%a, %d %b %Y %X +%f')
         if item["content"] is None or item["content"] is '':
             item["content"] = description.css("::text").get()
         if item["resume"] is None:

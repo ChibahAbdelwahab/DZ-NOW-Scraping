@@ -3,6 +3,7 @@ import scrapy
 from scrapy.http import TextResponse
 
 from dznow.items import NewsItem
+import datetime
 
 
 class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
@@ -18,7 +19,7 @@ class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
         item = NewsItem()
         item["title"] = node.xpath("title/text()").get()
         item["link"] = node.xpath("link/text()").get()
-        item["date"] = node.xpath("pubDate/text()").get()
+        item["date"] = datetime.datetime.strptime(node.xpath("pubDate/text()").get(),'%a, %d %b %Y %X +%f')
         item["category"] = node.xpath("category/text()").get()
         item["author"] = node.xpath("dc/author/text()").get()
         item["category"] = node.xpath("category/text()").get()
