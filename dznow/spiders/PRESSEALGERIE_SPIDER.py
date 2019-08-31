@@ -8,7 +8,7 @@ from dznow.items import NewsItem
 class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
     name = 'PRESSEALGERIE_SPIDER'
     allowed_domains = ['http://www.pressealgerie.fr/news/feed/']
-    start_urls = ['http://www.pressealgerie.fr/news/feed//']
+    start_urls = ['http://www.pressealgerie.fr/news/feed/']
     itertag = 'item'
     custom_settings = {
         "HTTPCACHE_ENABLED": 'True'
