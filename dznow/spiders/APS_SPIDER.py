@@ -38,7 +38,7 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
         item['category'] = node.xpath('category/text()').get()
         item['author'] = node.xpath('author/text()').get()
         item['date'] = node.xpath('pubDate/text()').get()
-        if item["content"] is None:
+        if item["content"] is None or item["content"] is '':
             item["content"] = description.css("::text").get()
         if item["resume"] is None:
             item["resume"] = description.css("::text").get()
