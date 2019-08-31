@@ -12,7 +12,6 @@ class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
     start_urls = ['http://www.pressealgerie.fr/news/feed/']
     itertag = 'item'
     custom_settings = {
-        "HTTPCACHE_ENABLED": 'True'
     }
     headers = {
         # "Host": "http://www.aps.dz",

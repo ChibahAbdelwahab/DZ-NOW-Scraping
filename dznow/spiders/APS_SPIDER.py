@@ -25,7 +25,6 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
                   ]
     itertag = 'item'
     custom_settings = {
-        "HTTPCACHE_ENABLED": 'True'
     }
     headers = {
         # "Host": "http://www.aps.dz",

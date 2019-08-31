@@ -12,7 +12,6 @@ class LiberteSpiderSpider(scrapy.spiders.XMLFeedSpider):
     start_urls = ['https://www.liberte-algerie.com/article/feed/']
     itertag = 'item'
     custom_settings = {
-        "HTTPCACHE_ENABLED": 'True'
     }
 
     def parse_node(self, response, node):
