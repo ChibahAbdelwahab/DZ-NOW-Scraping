@@ -20,6 +20,9 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
                   "http://feeds.aps.dz/aps-regions",
                   "http://feeds.aps.dz/APS-Sante-Science-Technologie", ]
     itertag = 'item'
+    custom_settings = {
+        "HTTPCACHE_ENABLED": 'True'
+    }
 
     def parse_node(self, response, node):
         item = NewsItem()
