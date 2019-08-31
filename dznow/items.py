@@ -8,7 +8,14 @@
 import scrapy
 
 
-class DznowItem(scrapy.Item):
+class NewsItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    category = scrapy.Field()
+    title = scrapy.Field()
+    resume = scrapy.Field()
+    content = scrapy.Field()
+    author = scrapy.Field()
+    date = scrapy.Field()
+    image = scrapy.Field()
+    source = scrapy.Field()
+    link = scrapy.Field()
