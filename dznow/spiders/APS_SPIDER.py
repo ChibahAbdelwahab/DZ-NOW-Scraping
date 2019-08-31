@@ -45,17 +45,15 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
         description = node.xpath('description/text()').get()
         description = TextResponse(response.url, body=description,
                                    encoding='utf-8')
+        item['image'] = description.css("img ::attr('src')").get()
+        item['resume'] = description.css(".K2FeedIntroText strong::text").get()
+        item['content'] = description.css(".K2FeedFullText ::text ").getall()
         item['category'] = node.xpath('category/text()').get()
         item['author'] = node.xpath('author/text()').get()
         item['date'] = datetime.datetime.strptime(
             node.xpath("pubDate/text()").get(), '%a, %d %b %Y %X +%f')
-        yield Request(item['link'], self.parse_item, headers=self.headers,
-                      meta={"item": item})
-
-    def parse_item(self, response):
-        item = response.meta["item"]
-        item["title"] = response.css(".itemTitle ::text").get()
-        item["resume"] = response.css(".itemIntroText::text").get()
-        item["image"] = response.css(".itemImage img ::attr(src)").get()
-        item["content"] = response.css(".itemFullText::text").get()
+        if item["content"] is None or item["content"] is '':
+            item["content"] = description.css("::text").get()
+        if item["resume"] is None:
+            item["resume"] = description.css("::text").get()
         yield item
