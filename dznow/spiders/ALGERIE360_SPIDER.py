@@ -6,7 +6,7 @@ import datetime
 
 
 class Algerie360SpiderSpider(scrapy.Spider):
-    name = 'ALGERIE360_SPIDER'
+    name = 'ALGERIE360'
     allowed_domains = ['https://www.algerie360.com/rss-feedburner/']
     start_urls = ['https://www.algerie360.com/rss-feedburner//']
 

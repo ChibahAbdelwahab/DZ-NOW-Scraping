@@ -8,7 +8,7 @@ from dznow.items import NewsItem
 
 
 class LiberteSpiderSpider(scrapy.spiders.XMLFeedSpider):
-    name = 'LIBERTE_SPIDER'
+    name = 'LIBERTE'
     start_urls = ['https://www.liberte-algerie.com/article/feed/']
     itertag = 'item'
     custom_settings = {

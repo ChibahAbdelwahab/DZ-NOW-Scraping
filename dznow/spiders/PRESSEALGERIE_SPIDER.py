@@ -8,7 +8,7 @@ import datetime
 
 
 class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
-    name = 'PRESSEALGERIE_SPIDER'
+    name = 'PRESSEALGERIE'
     start_urls = ['http://www.pressealgerie.fr/news/feed/']
     itertag = 'item'
     custom_settings = {
@@ -52,6 +52,7 @@ class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
                 response.css(".rgg-imagegrid a::attr(href)").getall()):
             images.append(i)
         item["extra_images"] = images
+        item["video"] = response.css("iframe::attr(src)").get()
         yield item
 
 
