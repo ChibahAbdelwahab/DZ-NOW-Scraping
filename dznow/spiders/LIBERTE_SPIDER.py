@@ -31,6 +31,5 @@ class LiberteSpiderSpider(scrapy.spiders.XMLFeedSpider):
             str(x) for x in response.css("#text_core p::text").getall()
         )
         item["category"] = response.css("#global strong::text").get().strip()
-        # yield item
         item["image"] = response.css(".post-image ::attr(src)").get()
-        print(response.url, item["image"])
+        yield item
