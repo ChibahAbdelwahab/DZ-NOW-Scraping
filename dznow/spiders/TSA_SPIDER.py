@@ -27,8 +27,7 @@ class TsaSpiderSpider(scrapy.Spider):
                 ".article-preview__desc ::text").get().strip()
             item["link"] = i.css("h1 a::attr(href)").get()
             item["title"] = i.css("h1 a::text").get()
-            # item["category"] = response
-            print(response.url.split("/")[-2:-1][0])
+            item["category"] = response.url.split("/")[-2:-1][0]
             item["image"] = i.css("a ::attr(data-bg)").get()
             yield Request(item['link'], self.parse_item, meta={"item": item})
 
