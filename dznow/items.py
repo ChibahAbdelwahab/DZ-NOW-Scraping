@@ -19,3 +19,4 @@ class NewsItem(scrapy.Item):
     image = scrapy.Field()
     source = scrapy.Field()
     link = scrapy.Field()
+    source = scrapy.Field()

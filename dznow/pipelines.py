@@ -8,4 +8,5 @@
 
 class DznowPipeline(object):
     def process_item(self, item, spider):
+        item["source"] = spider.name
         return item
