@@ -18,7 +18,8 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
                   "http://feeds.aps.dz/aps-societe",
                   "http://feeds.aps.dz/aps-culture",
                   "http://feeds.aps.dz/aps-regions",
-                  "http://feeds.aps.dz/APS-Sante-Science-Technologie", ]
+                  "http://feeds.aps.dz/APS-Sante-Science-Technologie",
+                  ]
     itertag = 'item'
     custom_settings = {
         "HTTPCACHE_ENABLED": 'True'
@@ -31,9 +32,14 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
         description = node.xpath('description/text()').get()
         description = TextResponse(response.url, body=description,
                                    encoding='utf-8')
-        item['image'] = description.css("div img ::attr('src')").get()
+        item['image'] = description.css("img ::attr('src')").get()
         item['resume'] = description.css(".K2FeedIntroText strong::text").get()
         item['content'] = description.css(".K2FeedFullText ::text ").getall()
         item['category'] = node.xpath('category/text()').get()
         item['author'] = node.xpath('author/text()').get()
-        return item
+        item['date'] = node.xpath('pubDate/text()').get()
+        if item["content"] is None:
+            item["content"] = description.css("::text").get()
+        if item["resume"] is None:
+            item["resume"] = description.css("::text").get()
+        yield item
