@@ -47,11 +47,6 @@ class PressealgerieSpiderSpider(scrapy.spiders.XMLFeedSpider):
         item = response.meta["item"]
         item["content"] = "".join(
             str(x) for x in response.css("article p::text").getall())
-        images = []
-        for i in enumerate(
-                response.css(".rgg-imagegrid a::attr(href)").getall()):
-            images.append(i)
-        item["extra_images"] = images
         item["video"] = response.css("iframe::attr(src)").get()
         yield item
 

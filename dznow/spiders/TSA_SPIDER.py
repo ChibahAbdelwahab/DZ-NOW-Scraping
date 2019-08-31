@@ -36,6 +36,6 @@ class TsaSpiderSpider(scrapy.Spider):
         item["date"] = response.css("time::attr(datetime)").get()
         item["date"] = datetime.datetime.strptime(item["date"][:-6],
                                                   "%Y-%m-%dT%X")
-
+        item["category"] = response.url.split("/")[-2:-1][0]
         item["video"] = response.css("iframe::attr(src)").get()
         yield item

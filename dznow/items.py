@@ -20,5 +20,4 @@ class NewsItem(scrapy.Item):
     source = scrapy.Field()
     link = scrapy.Field()
     source = scrapy.Field()
-    extra_images = scrapy.Field()
     video = scrapy.Field()
