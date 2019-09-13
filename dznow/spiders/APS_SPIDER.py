@@ -55,4 +55,6 @@ class ApsSpider(scrapy.spiders.XMLFeedSpider):
             item["content"] = description.css("::text").get()
         if item["resume"] is None:
             item["resume"] = description.css("::text").get()
+        if '.jpg' not in item["image"]:
+            return
         yield item

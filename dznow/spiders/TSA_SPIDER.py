@@ -31,6 +31,7 @@ class TsaSpiderSpider(scrapy.Spider):
             yield Request(item['link'], self.parse_item, meta={"item": item})
 
     def parse_item(self, response):
+        print(response.url)
         item = response.meta['item']
         item["content"] = response.css(".article__content p::text").get()
         item["date"] = response.css("time::attr(datetime)").get()
