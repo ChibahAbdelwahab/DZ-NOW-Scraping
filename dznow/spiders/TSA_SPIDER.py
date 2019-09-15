@@ -16,14 +16,12 @@ class TsaSpiderSpider(scrapy.Spider):
         "https://www.tsa-algerie.com/sport/",
         "https://www.tsa-algerie.com/videos/"
     ]
-    custom_settings = {
-    }
 
     def parse(self, response):
         for i in response.css(".category__highlighted-grid article"):
             item = NewsItem()
             item["resume"] = i.css(
-                ".article-preview__desc ::text").get().strip()
+                ".article-preview__desc ::text").get()
             item["link"] = i.css("h1 a::attr(href)").get()
             item["title"] = i.css("h1 a::text").get()
             item["category"] = response.url.split("/")[-2:-1][0]
