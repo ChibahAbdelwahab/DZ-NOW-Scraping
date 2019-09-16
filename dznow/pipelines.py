@@ -10,5 +10,5 @@ class DznowPipeline(object):
     def process_item(self, item, spider):
         item["source"] = spider.name
         item["content"].strip()
-        item["resume"].strip()
+        item["resume"].replace("\r", '').replace("\n", "").strip()
         return item
