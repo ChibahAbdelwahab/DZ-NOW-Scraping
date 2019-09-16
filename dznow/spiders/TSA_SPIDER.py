@@ -16,9 +16,6 @@ class TsaSpiderSpider(scrapy.Spider):
         "https://www.tsa-algerie.com/sport/",
         "https://www.tsa-algerie.com/videos/"
     ]
-    custom_settings = {
-        "HTTPCACHE_ENABLED": "True"
-    }
 
     def parse(self, response):
         for i in response.css(".category__highlighted-grid article"):
