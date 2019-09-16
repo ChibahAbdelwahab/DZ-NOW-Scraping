@@ -9,13 +9,6 @@
 class DznowPipeline(object):
     def process_item(self, item, spider):
         item["source"] = spider.name
-        try:
-            content = "".join(str(x).strip() for x in item["content"])
-            item['content'] = content
-        except:
-            pass
-        try:
-            item["content"] = item["content"].strip()
-        except:
-            pass
+        item["content"].strip()
+        item["resume"].strip()
         return item

@@ -16,12 +16,15 @@ class TsaSpiderSpider(scrapy.Spider):
         "https://www.tsa-algerie.com/sport/",
         "https://www.tsa-algerie.com/videos/"
     ]
+    custom_settings = {
+        "HTTPCACHE_ENABLED": "True"
+    }
 
     def parse(self, response):
         for i in response.css(".category__highlighted-grid article"):
             item = NewsItem()
             item["resume"] = i.css(
-                ".article-preview__desc ::text").get()
+                ".article-preview__desc ::text").get().strip()
             item["link"] = i.css("h1 a::attr(href)").get()
             item["title"] = i.css("h1 a::text").get()
             item["category"] = response.url.split("/")[-2:-1][0]
@@ -29,12 +32,14 @@ class TsaSpiderSpider(scrapy.Spider):
             yield Request(item['link'], self.parse_item, meta={"item": item})
 
     def parse_item(self, response):
-        print(response.url)
         item = response.meta['item']
-        item["content"] = response.css(".article__content p::text").get()
+        content = response.css(".article__highlighted p::text").getall()
+        item["content"] = " ".join(x for x in content)
         item["date"] = response.css("time::attr(datetime)").get()
         item["date"] = datetime.datetime.strptime(item["date"][:-6],
                                                   "%Y-%m-%dT%X")
 
         item["video"] = response.css("iframe::attr(src)").get()
+        if 'Cet article est ' in item["content"]:
+            return
         yield item
